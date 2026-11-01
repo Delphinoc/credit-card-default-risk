@@ -1,0 +1,7 @@
+latest_repayment_status,clients,defaults,default_rate
+a. no card use,2759,365.0,0.1323
+b. paid in full,5686,954.0,0.1678
+c. revolving (min. paid),14737,1888.0,0.1281
+d. 1 month late,3688,1252.0,0.3395
+e. 2 months late,2667,1844.0,0.6914
+f. 3+ months late,463,333.0,0.7192

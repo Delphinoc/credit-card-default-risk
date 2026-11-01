@@ -1,0 +1,13 @@
+check_name,severity,violations
+row_count_is_30000,error,0
+client_id_unique,error,0
+no_nulls_in_key_fields,error,0
+default_flag_is_binary,error,0
+credit_limit_positive,error,0
+age_between_18_and_100,error,0
+pay_status_in_range_-2_to_9,error,0
+payments_non_negative,error,0
+education_undocumented_code,warn,468
+marriage_undocumented_code,warn,377
+negative_bill_in_any_month,warn,1930
+latest_bill_over_credit_limit,warn,2115
