@@ -4,7 +4,7 @@ Which credit-card clients are most likely to miss next month's payment, and what
 
 This project builds a **SQL (DuckDB) pipeline with data-quality checks**, an **interpretable logistic regression model**, and a **plain-English risk memo** for credit and collections teams. It uses 30,000 clients from the public UCI "Default of Credit Card Clients" dataset.
 
-➡️ **Read the findings:** [`reports/risk_memo.md`](reports/risk_memo.md)
+➡️ **Read the findings:** [`reports/risk_memo.md`](reports/risk_memo.md) (who will default) · [`reports/portfolio_memo.md`](reports/portfolio_memo.md) (how delinquency is moving)
 
 ## Headline results
 
@@ -14,6 +14,17 @@ This project builds a **SQL (DuckDB) pipeline with data-quality checks**, an **i
 - **No demographics are used in the model.** Sex, age, education and marital status are left out as protected or sensitive attributes in credit decisions.
 
 ![Default rate by model risk decile](reports/figures/decile_default_rate.png)
+
+## Portfolio monitoring extension
+
+A second layer reshapes the data into **180,000 account-months** and tracks the KPIs a retail-credit team reviews each month: outstanding balances, utilisation, delinquency rates, **roll rates** between delinquency buckets, cure rates and roll-to-default.
+
+- Outstanding balances grew **32%** (Apr→Sep) while the share of accounts 2+ months late rose from **10.3%** to a peak of **14.7%**.
+- Each month **4.9%** of current accounts fell behind, and only **30%** of 1–2-month-late accounts cured.
+- Accounts late in September were **23%** of the book but **52%** of October defaults.
+- A **data-quality check caught a coding change**: status "1 month late" is used almost only in September (3,688 vs 34 accounts), so buckets were merged and roll rates pooled over consistently coded months.
+
+![Portfolio dashboard](reports/figures/portfolio_dashboard.png)
 
 ## How it works
 
@@ -29,7 +40,12 @@ src/pipeline.py           runs the SQL, stops if any blocking check fails, expor
 src/model.py              logistic regression, 70/30 stratified split, AUC/Gini/KS, risk deciles,
                           odds ratios with 95% CIs, comparison to a simple "2+ months late" rule
 reports/risk_memo.md      findings, risk-tier actions, caveats
-tests/                    15 pytest tests (data quality, feature logic, mart reconciliation, model checks)
+        │
+sql/04_portfolio.sql      account-month panel, monthly KPIs, roll-rate matrix, roll-to-default, segment view
+                          + 3 blocking checks and 1 warning check
+src/portfolio.py          runs the portfolio layer, exports marts for Power BI / Tableau, draws the dashboard
+reports/portfolio_memo.md trends, roll rates, recommendations, data-quality notes
+tests/                    24 pytest tests (data quality, feature logic, mart reconciliation, model, portfolio checks)
 ```
 
 ## Run it
@@ -38,10 +54,11 @@ tests/                    15 pytest tests (data quality, feature logic, mart rec
 pip install -r requirements.txt
 python src/pipeline.py      # build DuckDB database + data-quality report
 python src/model.py         # train model, write metrics, charts and odds ratios
-pytest -q                   # 15 tests
+python src/portfolio.py     # portfolio KPIs, roll rates and dashboard
+pytest -q                   # 24 tests
 ```
 
-Outputs land in `outputs/` (metrics.json, odds_ratios.csv, test_deciles.csv, dq_results.csv, segment marts) and `reports/figures/`.
+Outputs land in `outputs/` (metrics.json, odds_ratios.csv, test_deciles.csv, dq_results.csv, segment marts), `outputs/portfolio/` (portfolio marts) and `reports/figures/`.
 
 ## Data
 

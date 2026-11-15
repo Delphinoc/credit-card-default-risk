@@ -1,0 +1,9 @@
+from_bucket,to_bucket,transitions,roll_rate
+0. current,0. current,100988,0.9507
+0. current,1. 1-2 months late,5242,0.0493
+1. 1-2 months late,0. current,3738,0.302
+1. 1-2 months late,1. 1-2 months late,7879,0.6366
+1. 1-2 months late,2. 3+ months late,759,0.0613
+2. 3+ months late,0. current,145,0.104
+2. 3+ months late,1. 1-2 months late,444,0.3185
+2. 3+ months late,2. 3+ months late,805,0.5775
