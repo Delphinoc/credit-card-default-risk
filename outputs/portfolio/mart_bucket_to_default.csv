@@ -1,0 +1,4 @@
+sep_bucket,accounts,outstanding_ntd,defaults,default_rate,balance_default_rate
+0. current,23182,1239659365.0,3207.0,0.1383,0.1179
+1. 1-2 months late,6355,273740702.0,3096.0,0.4872,0.5776
+2. 3+ months late,463,23981190.0,333.0,0.7192,0.7353

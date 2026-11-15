@@ -1,0 +1,5 @@
+check_name,severity,violations
+every_client_has_6_months,error,0
+transitions_equal_5_per_client,error,0
+roll_rate_rows_sum_to_1,error,0
+status_1_used_outside_september,warn,34

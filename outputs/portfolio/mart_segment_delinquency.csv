@@ -1,0 +1,11 @@
+dimension,segment,accounts,dq1plus_rate,default_rate
+credit_limit,a. <50k,4311,0.3714,0.3607
+credit_limit,b. 50k-100k,7139,0.2619,0.2601
+credit_limit,c. 100k-200k,7400,0.2204,0.2077
+credit_limit,d. 200k-400k,9075,0.1624,0.1586
+credit_limit,e. 400k+,2075,0.1166,0.1195
+utilisation,a. <30%,14792,0.1988,0.1831
+utilisation,b. 30-50%,2834,0.223,0.2251
+utilisation,c. 50-80%,4394,0.2515,0.2633
+utilisation,d. 80-100%,5857,0.2414,0.2553
+utilisation,e. 100%+,2123,0.3424,0.3005
